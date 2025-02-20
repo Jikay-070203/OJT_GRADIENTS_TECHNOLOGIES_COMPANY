@@ -1,0 +1,8 @@
+Link support dataset
+
+https://huggingface.co/datasets/hoanguyenthanh07/white_balance_OJT_task2/tree/main
+
+
+2 paper input 3 image:
+Modeling the Lighting in Scenes as Style for Auto White-Balance Correction
+Deterministic Neural Illumination Mapping for Efficient Auto-White Balance Correction
