@@ -1,0 +1,93 @@
+Yêu cầu chính :
+Anh thông báo tuần này sẽ bắt đầu phân chia project, hôm nay anh cần các bạn refactor code trước khi chuyển project mới:
+Dùng thư viện trism để thay thế tritonclient:https://github.com/hieupth/trism
+Thay structure serving model bằng repo GitHub -https://github.com/hieupth/tritonserver
++mục đích để:
+1:lưu model trên huggingface để tự động down mỗi lần chạy docker image hosting model
+2:Thay image tritonserver nhẹ hơn
+############################
+Giải thích chi tiết yêu cầu:
+
+Bạn muốn cải thiện cách bạn triển khai (deploy) các mô hình học máy bằng Triton Inference Server, với ba mục tiêu chính:
+
+Đơn giản hóa việc tương tác với Triton Server: Thay vì sử dụng tritonclient (thư viện chính thức của NVIDIA), bạn muốn sử dụng thư viện trism (https://github.com/hieupth/trism). trism được thiết kế để đơn giản hóa quá trình gửi yêu cầu suy luận (inference requests) đến Triton Server, giúp code dễ đọc và dễ bảo trì hơn.
+
+Lưu trữ và tải mô hình tự động từ Hugging Face Hub: Thay vì sử dụng cấu trúc (structure) serving model hiện tại, bạn muốn tích hợp với Hugging Face Hub. Điều này có nghĩa là:
+
+Bạn sẽ lưu trữ các mô hình của mình trên Hugging Face Hub, một nền tảng phổ biến để chia sẻ và khám phá các mô hình học máy.
+
+Khi bạn chạy Docker image chứa Triton Server, nó sẽ tự động tải các mô hình cần thiết từ Hugging Face Hub. Điều này giúp bạn dễ dàng cập nhật mô hình, chia sẻ chúng với người khác, và đảm bảo rằng bạn luôn sử dụng phiên bản mới nhất của mô hình.
+
+Bạn sẽ sử dụng repo https://github.com/hieupth/tritonserver để thay thế cấu trúc serving model hiện tại, hỗ trợ cho việc down model tự động.
+
+Giảm kích thước Docker image của Triton Server: Bạn muốn sử dụng một Docker image nhẹ hơn cho Triton Server. Điều này có thể giúp giảm thời gian tải xuống image, giảm dung lượng lưu trữ, và cải thiện hiệu suất. Repo GitHub (https://github.com/hieupth/tritonserver) bạn cung cấp có thể chứa các tùy chỉnh để tạo ra một image Triton Server nhỏ gọn hơn, phù hợp với nhu cầu cụ thể của bạn.
+
+Tóm tắt ngắn gọn:
+
+Bạn muốn thay thế tritonclient bằng trism để đơn giản hóa việc tương tác với Triton Inference Server, lưu trữ và tự động tải các mô hình từ Hugging Face Hub bằng cách sử dụng cấu trúc serving model từ repo hieupth/tritonserver, và giảm kích thước Docker image của Triton Server.
+
+Hướng dẫn thực hiện:
+
+Để hoàn thành yêu cầu này, bạn cần thực hiện các bước sau:
+
+Tìm hiểu về trism:
+
+Đọc tài liệu và ví dụ sử dụng của trism trên trang GitHub của nó (https://github.com/hieupth/trism).
+
+Tìm hiểu cách gửi yêu cầu suy luận đến Triton Server bằng trism.
+
+Cài đặt thư viện trism: pip install trism
+
+Tìm hiểu về Hugging Face Hub:
+
+Làm quen với Hugging Face Hub (https://huggingface.co/) và cách lưu trữ các mô hình trên đó.
+
+Tìm hiểu về các thư viện và công cụ của Hugging Face để tải mô hình từ Hub (ví dụ: transformers, huggingface_hub).
+
+Khám phá repo hieupth/tritonserver:
+
+Clone repo hieupth/tritonserver từ GitHub.
+
+Đọc tài liệu và code trong repo để hiểu cách nó hoạt động và cách nó hỗ trợ việc tải mô hình từ Hugging Face Hub.
+
+Xác định các file cấu hình và script quan trọng cần chỉnh sửa.
+
+Sửa đổi cấu trúc serving model:
+
+Thay thế cấu trúc serving model hiện tại của bạn bằng cấu trúc từ repo hieupth/tritonserver.
+
+Cấu hình các file để trỏ đến model trên huggingface hub.
+
+Đảm bảo rằng Triton Server có thể tải và phục vụ các mô hình từ Hugging Face Hub một cách chính xác.
+
+Tích hợp trism vào code ứng dụng:
+
+Thay thế các lệnh gọi tritonclient trong code ứng dụng của bạn bằng các lệnh gọi tương ứng của trism.
+
+Kiểm tra xem ứng dụng của bạn vẫn hoạt động chính xác sau khi thay đổi.
+
+Xây dựng Docker image mới:
+
+Tạo một Dockerfile dựa trên repo hieupth/tritonserver.
+
+Đảm bảo rằng Dockerfile cài đặt tất cả các thư viện và công cụ cần thiết (bao gồm trism, transformers, huggingface_hub, etc.).
+
+Xây dựng Docker image và kiểm tra xem nó có hoạt động chính xác hay không.
+
+Kiểm tra image có nhẹ hơn image ban đầu hay không.
+
+Kiểm tra và triển khai:
+
+Kiểm tra kỹ lưỡng tất cả các thành phần (Triton Server, ứng dụng, Docker image) để đảm bảo chúng hoạt động chính xác.
+
+Triển khai Docker image mới lên môi trường production của bạn.
+
+Lưu ý quan trọng:
+
+Quá trình này có thể yêu cầu kiến thức về Docker, Triton Inference Server, Hugging Face Hub, và Python.
+
+Hãy bắt đầu với một mô hình đơn giản và tăng dần độ phức tạp khi bạn đã quen với quy trình.
+
+Hãy tham khảo tài liệu và ví dụ từ các dự án liên quan để có thêm thông tin và ý tưởng.
+
+Bạn cần có tài khoản Hugging Face để lưu trữ model.
