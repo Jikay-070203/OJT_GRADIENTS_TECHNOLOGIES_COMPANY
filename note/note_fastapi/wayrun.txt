@@ -1,0 +1,119 @@
+Triển khai FastAPI API cho model serving 
+1. Thiết lập môi trường Python
+python -m venv .venv
+.venv\Scripts\Activate
+python -m pip install --upgrade pip
+2. Cài đặt FastAPI và Uvicorn
+FastAPI yêu cầu Python 3.8+ để chạy. Đầu tiên, bạn cần cài đặt FastAPI và Uvicorn (một ASGI server để chạy FastAPI).
+
+
+pip install fastapi uvicorn
+3. Tạo file Python cho ứng dụng FastAPI
+Hãy tạo một file mới, ví dụ main.py và mở nó bằng trình soạn thảo code của bạn (VS Code, PyCharm, hoặc bất kỳ IDE nào).
+
+Nội dung file main.py:
+
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+4. Chạy server FastAPI
+Chạy ứng dụng của bạn bằng Uvicorn.
+
+
+uvicorn main:app --reload
+Giải thích:
+uvicorn main:app: Chạy server Uvicorn với ứng dụng được định nghĩa trong main.py.
+--reload: Chế độ tự động tải lại server khi có thay đổi trong mã nguồn (dùng khi phát triển).
+Sau khi chạy lệnh trên, bạn sẽ thấy output tương tự:
+
+INFO:     Will watch for changes in these directories: ['/your_project_path']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+5. Kiểm tra API
+Mở trình duyệt và truy cập: http://127.0.0.1:8000
+Kiểm tra tài liệu API tự động:
+http://127.0.0.1:8000/docs (Swagger UI)
+http://127.0.0.1:8000/redoc (ReDoc)
+6. Tóm tắt các bước đã thực hiện
+Bước 1: Cài đặt FastAPI và Uvicorn ✅
+Bước 2: Tạo file main.py ✅
+Bước 3: Import FastAPI và tạo ứng dụng ✅
+Bước 4: Định nghĩa một route (@app.get("/")) ✅
+Bước 5: Chạy server với uvicorn main:app --reload ✅
+Bước 6: Kiểm tra API trên trình duyệt ✅
+Các bước tiếp theo để hoàn thành yêu cầu
+Các bước đã thực hiện:
+Cài đặt FastAPI ✅
+Tạo ứng dụng FastAPI ✅
+Định nghĩa một route đơn giản (@app.get("/")) ✅
+Chạy server bằng Uvicorn ✅
+Các bước cần làm tiếp theo:
+Cài đặt thư viện cần thiết (requests hoặc httpx để gửi request đến Triton):
+
+
+pip install httpx
+Xây dựng API để nhận request từ người dùng và gửi đến Triton.
+
+Cập nhật file main.py như sau:
+
+from fastapi import FastAPI
+import httpx
+
+# Khởi tạo ứng dụng FastAPI
+app = FastAPI()
+
+# Địa chỉ của Triton Inference Server (cập nhật lại cho đúng với máy của bạn)
+TRITON_SERVER_URL = "http://localhost:8001/v2/models/your_model/infer"
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+# API để gửi request inference đến Triton
+@app.post("/predict/")
+async def predict(data: dict):
+    """
+    Nhận dữ liệu từ client, gửi đến Triton để inference và trả về kết quả.
+    """
+    async with httpx.AsyncClient() as client:
+        response = await client.post(TRITON_SERVER_URL, json=data)
+        return response.json()
+Giải thích:
+API /predict/: Nhận dữ liệu đầu vào từ người dùng.
+Dữ liệu được gửi đến Triton: Dữ liệu này sẽ được gửi đến Triton Inference Server thông qua HTTP.
+Nhận kết quả từ Triton và trả về cho client: API sẽ trả về kết quả inference từ Triton.
+3. Chạy lại server FastAPI:
+
+uvicorn main:app --reload
+Kiểm tra API
+Bạn có thể gửi request bằng Postman hoặc curl.
+Dữ liệu giả định (JSON request):
+
+
+{
+  "inputs": [
+    {
+      "name": "input_1",
+      "shape": [1, 3, 224, 224],
+      "datatype": "FP32",
+      "data": [0.1, 0.2, 0.3, ...]
+    }
+  ]
+}
+Gửi request bằng curl:
+
+
+curl -X POST "http://127.0.0.1:8000/predict/" -H "Content-Type: application/json" -d '{"inputs": [{"name": "input_1", "shape": [1, 3, 224, 224], "datatype": "FP32", "data": [0.1, 0.2, 0.3]}]}'
+Chạy FastAPI và kiểm tra inference
+Chạy FastAPI server:
+
+
+uvicorn main:app --reload
+Gửi request đến API:
+
+curl -X POST "http://127.0.0.1:8000/predict/" -H "Content-Type: application/json" -d '{"inputs": [{"name": "input_1", "shape": [1, 3, 224, 224], "datatype": "FP32", "data": [0.1, 0.2, 0.3]}]}'
+✅ Nếu mọi thứ chạy ổn, bạn sẽ nhận được response từ Triton.

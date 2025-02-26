@@ -1,0 +1,196 @@
+Dưới đây là **tổng hợp tất cả lỗi bạn đã gặp từ đầu đến giờ**, kèm cách fix chi tiết và kết quả sau khi fix.  
+
+---
+
+# **📌 TỔNG HỢP LỖI VÀ CÁCH FIX**
+Dưới đây là danh sách các lỗi theo thứ tự thời gian từ lúc bắt đầu triển khai Triton Inference Server.  
+
+---
+
+## **1️⃣ Lỗi không tìm thấy module FastAPI khi chạy server**  
+### **Lệnh chạy:**  
+```powershell
+uvicorn main:app --reload
+```
+### **Kết quả lỗi:**  
+```plaintext
+ModuleNotFoundError: No module named 'fastapi'
+```
+
+### **Nguyên nhân:**  
+- FastAPI chưa được cài đặt trong môi trường hiện tại.  
+
+### **Cách fix:**  
+- Cài đặt FastAPI và các thư viện cần thiết:  
+```powershell
+pip install fastapi uvicorn requests numpy
+```
+
+### **Kết quả sau khi fix:**  
+✅ Server chạy thành công.  
+
+---
+
+## **2️⃣ Lỗi không thể kết nối đến Triton Server**  
+### **Lệnh chạy:**  
+```powershell
+python test_predict.py
+```
+### **Kết quả lỗi:**  
+```plaintext
+requests.exceptions.ConnectionError: Failed to establish a new connection: [Errno 111] Connection refused
+```
+
+### **Nguyên nhân:**  
+- Triton Server chưa được khởi động.  
+- Sai địa chỉ hoặc cổng kết nối.  
+
+### **Cách fix:**  
+- Chạy Triton Server trước:  
+```powershell
+docker run --rm --gpus=all -p 8000:8000 -p 8001:8001 -p 8002:8002 -v D:\models:/models nvcr.io/nvidia/tritonserver:23.12-py3 tritonserver --model-repository=/models
+```
+- Kiểm tra kết nối bằng lệnh:  
+```powershell
+curl http://localhost:8000/v2/health/ready
+```
+(Nếu trả về `"true"` nghĩa là Triton đã chạy thành công).  
+
+### **Kết quả sau khi fix:**  
+✅ Kết nối thành công với Triton Server.  
+
+---
+
+## **3️⃣ Lỗi `NameError: name 'response' is not defined`**
+### **Lệnh chạy:**  
+```powershell
+python test_predict.py
+```
+### **Kết quả lỗi:**  
+```plaintext
+Traceback (most recent call last):
+  File "D:\SourceCode\ProjectOJT\FastAPI\test_predict.py", line 3, in <module>
+    output_data = response["outputs"][0]["data"]
+                  ^^^^^^^^
+NameError: name 'response' is not defined
+```
+
+### **Nguyên nhân:**  
+- Biến `response` chưa được khởi tạo.  
+- Request bị lỗi nhưng không có kiểm tra lỗi.  
+
+### **Cách fix:**  
+- Kiểm tra status code trước khi lấy dữ liệu từ `response`:  
+```python
+import requests
+
+url = "http://localhost:8000/v2/models/densenet_onnx/infer"
+data = {"inputs": [{"name": "data_0", "shape": [3, 224, 224], "datatype": "FP32", "data": [0.5] * (3 * 224 * 224)}]}
+
+response = requests.post(url, json=data)
+
+if response.status_code == 200:
+    response_json = response.json()
+    print("Response:", response_json)
+    output_data = response_json["outputs"][0]["data"]
+else:
+    print(f"Request failed with status code {response.status_code}")
+    print("Response:", response.text)
+```
+
+### **Kết quả sau khi fix:**  
+✅ Không còn lỗi `NameError`, request được kiểm tra trước khi truy xuất dữ liệu.  
+
+---
+
+## **4️⃣ Lỗi HTTP 400: `unexpected shape for input`**
+### **Lệnh chạy:**  
+```powershell
+python test_predict.py
+```
+### **Kết quả lỗi:**  
+```json
+{"error":"unexpected shape for input 'data_0' for model 'densenet_onnx'. Expected [3,224,224], got [1,3,224,224]."}
+```
+
+### **Nguyên nhân:**  
+- Input có batch size `[1,3,224,224]` nhưng model yêu cầu `[3,224,224]`.  
+
+### **Cách fix:**  
+- Xoá batch dimension khi gửi request:  
+```python
+import numpy as np
+
+image = np.random.rand(3, 224, 224).astype(np.float32).tolist()
+
+data = {
+    "inputs": [
+        {
+            "name": "data_0",
+            "shape": [3, 224, 224],  # Đúng shape model yêu cầu
+            "datatype": "FP32",
+            "data": image
+        }
+    ]
+}
+```
+
+### **Kết quả sau khi fix:**  
+✅ Không còn lỗi về shape, mô hình nhận đúng input.  
+
+---
+
+## **5️⃣ Lỗi không tìm thấy mô hình khi gửi request**
+### **Lệnh chạy:**  
+```powershell
+python test_predict.py
+```
+### **Kết quả lỗi:**  
+```json
+{"error":"Request for unknown model: 'densenet_onnx'"}
+```
+
+### **Nguyên nhân:**  
+- Model chưa được load vào Triton Server.  
+- Sai tên model trong request.  
+
+### **Cách fix:**  
+- Kiểm tra model đã được Triton load chưa:  
+```powershell
+curl http://localhost:8000/v2/models/densenet_onnx
+```
+- Nếu chưa có, kiểm tra thư mục model repository (`/models/densenet_onnx`).  
+- Nếu model tên khác (`densenet` thay vì `densenet_onnx`), sửa lại trong request:  
+```python
+url = "http://localhost:8000/v2/models/densenet/infer"
+```
+
+### **Kết quả sau khi fix:**  
+✅ Triton nhận diện đúng mô hình và thực hiện inference.  
+
+---
+
+## **6️⃣ Chạy inference thành công**
+### **Lệnh chạy:**  
+```powershell
+python test_predict.py
+```
+### **Kết quả:**  
+```plaintext
+Predicted class: 591
+```
+✅ Mô hình đã chạy đúng, inference thành công.  
+
+---
+
+# **📌 TÓM TẮT CÁC LỖI VÀ CÁCH FIX**
+| **#**  | **Lỗi**                                          | **Nguyên nhân**                                      | **Cách fix** |
+|----|------------------------------------------------|------------------------------------------------|------------|
+| 1  | `ModuleNotFoundError: No module named 'fastapi'` | Chưa cài FastAPI | `pip install fastapi uvicorn requests numpy` |
+| 2  | `ConnectionError: Failed to establish a new connection` | Triton Server chưa chạy | Chạy Triton Server bằng Docker |
+| 3  | `NameError: name 'response' is not defined` | Biến `response` chưa khởi tạo hoặc request lỗi | Kiểm tra response trước khi truy xuất dữ liệu |
+| 4  | HTTP 400: `unexpected shape for input` | Gửi input có batch size `[1,3,224,224]` thay vì `[3,224,224]` | Xoá batch dimension |
+| 5  | `Request for unknown model` | Model chưa được load vào Triton hoặc sai tên | Kiểm tra model repository và tên model |
+| 6  | ✅ **Inference thành công** | Mô hình đã chạy đúng | Không cần fix |
+
+🔥 **Kết luận:** Bạn đã triển khai thành công Triton Inference Server và chạy inference đúng! 🚀

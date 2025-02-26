@@ -1,0 +1,76 @@
+📌 Cách lấy URL của Triton Inference Server trên terminal
+1️⃣ Kiểm tra container Triton đang chạy
+Nếu bạn đang chạy Triton trong Docker, hãy dùng lệnh sau để kiểm tra container:
+
+
+docker ps
+🔹 Output ví dụ:
+
+
+CONTAINER ID   IMAGE                                       PORTS                                         NAMES
+abcdef123456   nvcr.io/nvidia/tritonserver:23.08-py3       0.0.0.0:8000-8002->8000-8002/tcp             triton_server
+👉 Cột PORTS cho biết Triton đang mở các cổng sau:
+
+8000 → HTTP Inference API
+8001 → gRPC Inference API
+8002 → Metrics
+2️⃣ Lấy địa chỉ IP của container Triton
+Nếu Triton chạy trong Docker, bạn có thể tìm IP nội bộ của nó bằng lệnh:
+
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <tên container>
+🔹 Output ví dụ:
+
+
+172.17.0.2
+👉 URL của Triton sẽ là:
+
+HTTP: http://172.17.0.2:8000
+gRPC: grpc://172.17.0.2:8001
+3️⃣ Nếu Triton chạy trên máy chủ cục bộ (localhost)
+Nếu bạn chạy Triton trực tiếp trên máy mà không dùng Docker, thì URL mặc định là:
+
+HTTP: http://localhost:8000
+gRPC: grpc://localhost:8001
+📌 Ví dụ chạy Triton trên localhost:
+
+tritonserver --model-repository=/path/to/your/models
+4️⃣ Kiểm tra Triton đang hoạt động
+Bạn có thể kiểm tra Triton bằng cách gửi request:
+
+
+curl http://localhost:8000/v2/health/ready
+🔹 Nếu Triton chạy thành công, sẽ trả về:
+
+
+OK
+📌 Kết luận
+✅ Nếu Triton chạy trong Docker, kiểm tra IP bằng:
+
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <tên container>
+✅ Nếu chạy trên máy chủ cục bộ, dùng URL mặc định:
+
+HTTP: http://localhost:8000
+gRPC: grpc://localhost:8001
+🎯 Bạn đã tìm được địa chỉ IP của Triton Inference Server trong Docker là 172.17.0.2.
+📌 URL của Triton Inference Server của bạn:
+HTTP: http://172.17.0.2:8000
+gRPC: grpc://172.17.0.2:8001
+📌 Kiểm tra xem Triton có hoạt động không
+Chạy lệnh này trên terminal để kiểm tra Triton:
+
+
+curl http://172.17.0.2:8000/v2/health/ready
+🔹 Nếu Triton hoạt động, sẽ trả về:
+
+
+OK
+📌 Kiểm tra URL mới tìm được
+Bạn có thể kiểm tra thêm thông tin về các model đã được Triton nhận dạng với:
+
+
+curl http://172.17.0.2:8000/v2/models
+📌 Nếu không hoạt động, hãy kiểm tra lại container hoặc logs bằng:
+
+docker logs <tên container>
