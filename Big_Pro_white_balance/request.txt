@@ -1,0 +1,10 @@
+1. Bài toán: White Balance - cân bằng sáng
+2.  Input là 1 ảnh tối
+    Output là 1 ảnh sáng
+    Và bên cạnh đó phải có 1 câu text (prompt)
+
+3. Chạy được lại đoạn code: https://huggingface.co/timbrooks/instruct-pix2pix
+4. Docker + FastAPI
+5. Quantize[fp16] + Docker + FastAPI [Optional + điểm]
+6. Quantize[int8] + Docker + FastAPI [Optional + điểm]
+7. Quantize[int4] + Docker + FastAPI [Optional + điểm]
