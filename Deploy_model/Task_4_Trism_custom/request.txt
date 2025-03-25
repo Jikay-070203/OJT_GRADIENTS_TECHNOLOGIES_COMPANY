@@ -1,0 +1,105 @@
+🚀 Project Refactoring & Model Deployment Updates
+🎯 Main Requirements
+📌 This week, the project will be divided.
+📌 Today, you need to refactor the code before transitioning to the new project:
+
+✅ Replace tritonclient with trism (GitHub - trism).
+✅ Change the model serving structure using hieupth/tritonserver.
+
+🎯 Objectives
+🔹 Store models on Hugging Face for automatic download when running the Docker image hosting the model.
+🔹 Use a lighter Triton Server image for improved performance.
+
+📖 Detailed Explanation of Requirements
+You aim to enhance the deployment of machine learning models using Triton Inference Server with three main goals:
+
+🔹 1. Simplify Interaction with Triton Server
+🚀 Replace tritonclient with trism (GitHub - trism).
+
+📌 Why?
+✅ trism simplifies inference requests to Triton Server.
+✅ Makes the codebase cleaner and easier to maintain.
+
+🔹 2. Automate Model Storage & Loading from Hugging Face Hub
+💾 Instead of manually managing models, integrate Hugging Face Hub:
+✅ Store models on Hugging Face Hub for easy sharing and updates.
+✅ Auto-download models when running the Docker image.
+✅ Always use the latest model version without manual updates.
+✅ Use hieupth/tritonserver to automate loading models from Hugging Face.
+
+🔹 3. Reduce Triton Server Docker Image Size
+🐳 Use a lighter Docker image for Triton Server to:
+✅ Reduce download time.
+✅ Save storage space.
+✅ Improve overall performance.
+
+📌 The hieupth/tritonserver repository provides optimizations for a smaller Triton Server image.
+
+✅ Summary of Key Changes
+🔹 🔄 Replace tritonclient with trism for easier interaction with Triton Server.
+🔹 💾 Enable auto-download of models from Hugging Face Hub using hieupth/tritonserver.
+🔹 📉 Optimize the Triton Server Docker image for better efficiency.
+
+🔧 Implementation Steps
+📌 1️⃣ Learn & Install trism
+📍 Read the documentation and examples from trism GitHub.
+📍 Understand how to send inference requests using trism.
+📍 Install trism:
+
+
+pip install trism
+📌 2️⃣ Understand Hugging Face Hub
+📍 Get familiar with Hugging Face Hub and how to store models there.
+📍 Learn about Hugging Face libraries for model management:
+✅ transformers
+✅ huggingface_hub
+
+📌 3️⃣ Explore hieupth/tritonserver Repository
+📍 Clone the repository:
+
+
+git clone https://github.com/hieupth/tritonserver.git
+cd tritonserver
+📍 Study the documentation to understand how models are loaded from Hugging Face.
+📍 Identify key configuration files and scripts for integration.
+
+📌 4️⃣ Modify Model Serving Structure
+📍 Replace the current model serving structure with hieupth/tritonserver.
+📍 Configure files to load models from Hugging Face Hub.
+📍 Ensure Triton Server correctly loads and serves models.
+
+📌 5️⃣ Integrate trism into the Application
+📍 Replace tritonclient calls with equivalent trism functions.
+📍 Test inference requests to confirm correct functionality.
+
+📌 6️⃣ Build a New Lightweight Docker Image
+📍 Modify the Dockerfile to use hieupth/tritonserver.
+📍 Ensure all required dependencies are installed:
+✅ trism
+✅ transformers
+✅ huggingface_hub
+
+📍 Build and test the Docker image:
+
+
+docker build -t my-triton-server .
+📍 Compare the new image size with the previous version.
+
+📌 7️⃣ Test & Deploy
+📍 Verify all components:
+✅ Triton Server
+✅ Inference requests
+✅ Model loading from Hugging Face
+
+📍 Deploy the new Docker image in the production environment.
+
+⚠️ Important Notes
+🚀 This process requires knowledge of:
+🔹 Docker
+🔹 Triton Inference Server
+🔹 Hugging Face Hub
+🔹 Python
+
+📌 Start with a simple model, then scale up.
+📌 Hugging Face account is required to store and manage models.
+📌 Refer to documentation and examples from relevant projects for additional guidance.

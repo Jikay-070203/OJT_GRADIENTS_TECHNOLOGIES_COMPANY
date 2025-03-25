@@ -1,0 +1,15 @@
+1_Problem: White Balance - Brightness Adjustment
+
+Input: A dark image
+Output: A brightened image
+Additionally, there must be a text prompt alongside the output.
+
+2_Run the following code: InstructPix2Pix on Hugging Face => timbrooks/instruct-pix2pix
+
+3_Docker + FastAPI
+
+Quantization [fp16] + Docker + FastAPI (Optional)
+
+Quantization [int8] + Docker + FastAPI (Optional)
+
+Quantization [int4] + Docker + FastAPI (Optional)

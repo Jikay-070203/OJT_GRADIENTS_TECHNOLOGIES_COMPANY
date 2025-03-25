@@ -1,0 +1,91 @@
+Triton Inference Server Deployment Guide
+Step 1: Set Up Environment
+1.1. Create a virtual environment
+python -m venv .venv
+.venv\Scripts\Activate  # Windows
+source .venv/bin/activate  # Linux/Mac
+python -m pip install --upgrade pip
+1.2. Clone Triton Inference Server repository and fetch example models
+git clone -b r25.01 https://github.com/triton-inference-server/server.git
+cd server/docs/examples
+./fetch_models.sh
+Step 2: Start Triton Inference Server
+2.1. Run the following command to start the server using Docker:
+docker run --rm -p 8000:8000 -p 8001:8001 -p 8002:8002 \
+   -v "D:\SourceCode\ProjectOJT\complete\OJT_TASK3_LOCAL\Deploy\server\docs\examples\model_repository:/models" \
+   nvcr.io/nvidia/tritonserver:23.10-py3 tritonserver --model-repository=/models --backend-config=onnxruntime,execution_mode=cpu
+✅ Expected output:
+
+The server initializes and lists models (e.g., densenet_onnx, inception_graphdef, etc.) as READY.
+
+The server starts listening on:
+
+HTTP: localhost:8000
+
+gRPC: localhost:8001
+
+Metrics: localhost:8002
+
+Step 3: Test Server Health
+3.1. Check if the server is running:
+
+curl http://localhost:8000/v2/health/ready
+✅ Expected output:
+
+StatusCode: 200 OK (indicating the server is ready)
+
+Step 4: Call Inference API
+4.1. Install Triton Client
+pip install tritonclient[http]  # If error, try:
+pip install tritonclient[all]  # or use conda
+
+4.2. Run inference
+python api.py
+✅ Expected output:
+
+Model predictions (e.g., classification scores).
+
+Step 5: Deploy Triton in a Container
+5.1. Run an inference container:
+docker run -it --rm --net=host nvcr.io/nvidia/tritonserver:23.10-py3-sdk
+5.2. Inside the container, run inference:
+
+/workspace/install/bin/image_client -m densenet_onnx -c 3 -s INCEPTION /workspace/images/mug.jpg
+✅ Expected output:
+
+Image '/workspace/images/mug.jpg':
+    15.346230 (504) = COFFEE MUG
+    13.224326 (968) = CUP
+    10.422965 (505) = COFFEEPOT
+
+5.3. Test with custom images:
+docker run --rm --net=host \
+   -v "D:\SourceCode\ProjectOJT\complete\OJT_TASK3_LOCAL\Task32\Deploy_Model/image:/workspace/images" \
+   nvcr.io/nvidia/tritonserver:23.10-py3-sdk \
+   /workspace/install/bin/image_client -m densenet_onnx -c 3 -s INCEPTION /workspace/images/mug.jpg
+
+Step 6: Performance Benchmarking (Bonus)
+6.1. Run performance analysis inside the Triton SDK container:
+perf_analyzer -m densenet_onnx
+✅ Expected output:
+
+Performance metrics such as throughput, latency, and GPU utilization.
+
+Step 7: Push Code to GitHub
+7.1. Initialize a Git repository and push code:
+
+git init
+git add .
+git commit -m "Deploy Triton Inference Server"
+git branch -M main
+git remote add origin <your-github-repo-url>
+git push -u origin main
+
+✅ Tóm tắt các bước chính:
+1️⃣ Cài đặt môi trường
+2️⃣ Khởi động Triton Server
+3️⃣ Kiểm tra tình trạng server
+4️⃣ Gọi API suy luận (inference)
+5️⃣ Triển khai trong container
+6️⃣ Benchmark hiệu suất (tùy chọn)
+7️⃣ Đẩy code lên GitHub
