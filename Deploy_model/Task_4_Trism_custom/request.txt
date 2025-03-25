@@ -1,5 +1,14 @@
 🚀 Project Refactoring & Model Deployment Updates
+
 🎯 Main Requirements
+Use the Trism library to replace TritonClient: [Trism GitHub Repo](https://github.com/hieupth/trism)  
+Replace the model serving structure with the repository: [TritonServer GitHub Repo](https://github.com/hieupth/tritonserver)  
+
+### Purpose:
+✅ Store the model on Hugging Face, allowing it to be automatically downloaded each time the Docker image hosts the model.  
+✅ Use a lighter TritonServer image for improved efficiency.
+
+
 📌 This week, the project will be divided.
 📌 Today, you need to refactor the code before transitioning to the new project:
 
