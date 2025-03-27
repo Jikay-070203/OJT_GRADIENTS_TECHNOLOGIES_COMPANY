@@ -1,3 +1,5 @@
+promt_1
 1: make the image brighter and correct the white balance
 
+best_promt:
 2: correct lighting and make colors more natural
