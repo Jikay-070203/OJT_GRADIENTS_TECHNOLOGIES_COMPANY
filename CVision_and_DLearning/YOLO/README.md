@@ -1,10 +1,26 @@
-# 🚀 YOLOv8m Training Pipeline
 
-This repository provides a two-step process to train YOLOv8m on a custom dataset annotated in Pascal VOC XML format (if needed). The pipeline includes:
+# 🧠 YOLOv8 Object Detection Project
 
-1. 📦 Converting `.xml` annotations to YOLOv8 format (if needed)
-2. 🧠 Training YOLOv8m with the Ultralytics framework
+This repository contains the full training, conversion, and deployment pipeline for an object detection system using **YOLOv8**.
 
+<<<<<<< HEAD
+## 📁 Project Structure
+
+```
+.
+├── convert_model/                # Scripts to convert YOLO models (e.g., to ONNX, TensorRT)
+├── data/                         # Custom dataset (after extraction from dataset.zip)
+├── deploy/                       # Deployment-related code
+├── extract_object_into_from_xml/ # Utility to convert XML annotations (Pascal VOC) to YOLO format
+├── model/                        # Trained models, outputs, logs
+├── dataset.zip                   # Zipped dataset file
+├── yolov8m.pt                    # Trained YOLOv8m model
+├── v1_training.ipynb             # First training notebook
+├── v2_training.ipynb             # Improved/updated training notebook
+├── test_demo_v8.jpg              # Example image for testing demo
+├── link.txt                      # Contains link to dataset or model (if any)
+├── README.md                     # This file
+=======
 ---
 
 ## 📁 Repository Structure
@@ -53,82 +69,63 @@ folder_path = "annotations/train"
 output_folder = "labels/train"
 images_path = "images/train"
 label_dict = {"your_class_name": 0}  # Mapping label → index
+>>>>>>> be777977b6c29289436eb7702b138410bdcc5883
 ```
 
-> 📌 Lặp lại tương tự cho tập `val`.
+## 🚀 Features
 
----
+- Train custom object detection with YOLOv8
+- Convert Pascal VOC (XML) to YOLO format
+- Model format conversion (e.g., `.pt` → `.onnx`)
+- Custom dataset handling and preparation
+- Notebook-based training (v1 and v2)
+- Demo image included for quick testing
+- Model ready for deployment
 
-## 🧠 Step 2: Train YOLOv8m Model
+## 🛠 Requirements
 
-Open and run **`yolo_training.ipynb`**.
+```bash
+pip install ultralytics opencv-python matplotlib numpy
+```
 
-### ✅ What it does:
+Or use a `requirements.txt` file if available.
 
-- Loads YOLOv8m with `YOLO("yolov8m.pt")`
-- Trains using the specified `data.yaml`
-- Outputs:
-  - Training logs
-  - ✅ Best model weights: `runs/detect/train/weights/best.pt`
+## 🧪 Training
 
-### 🔧 Training parameters:
+You can use the notebooks to train the model:
+
+```bash
+jupyter notebook v2_training.ipynb
+```
+
+Training uses `ultralytics` package with YOLOv8.
+
+## 🧳 Dataset Preparation
+
+- If your annotations are in Pascal VOC format (XML), use the notebook/code in `extract_object_into_from_xml/` to convert to YOLO format.
+- Extract `dataset.zip` into the `data/` folder before training.
+
+## 🧾 Conversion
+
+To convert trained `.pt` model to ONNX or other formats, check scripts inside `convert_model/`.
+
+## 🚀 Deployment
+
+Deployment logic (e.g., via FastAPI, Flask, Triton, etc.) is available in `deploy/`.
+
+## 🖼 Demo
+
+You can use `test_demo_v8.jpg` and the trained model `yolov8m.pt` to perform inference.
+
+Example:
 
 ```python
-model.train(
-    data="data.yaml",
-    epochs=100,
-    imgsz=640,
-    batch=16
-)
+from ultralytics import YOLO
+
+model = YOLO("yolov8m.pt")
+results = model("test_demo_v8.jpg", show=True)
 ```
 
----
+## 📄 License
 
-## 📤 Step 3: Export Trained Model (Optional)
-
-Sau khi huấn luyện, bạn có thể export mô hình sang nhiều định dạng phổ biến để triển khai trên các nền tảng khác nhau.
-
-### ✅ Các định dạng đã export:
-
-| Format      | File/Folder Output                                      |
-| ----------- | ------------------------------------------------------- |
-| ONNX        | `best.onnx`                                             |
-| TorchScript | `best.torchscript`                                      |
-| OpenVINO    | `best_openvino_model/`                                  |
-| TFLite      | `best_float32.tflite`, `best_full_integer_quant.tflite` |
-
-### 🧪 Test thử sau khi export
-
-Ví dụ: test nhanh mô hình ONNX sau khi export:
-
-```python
-import onnxruntime
-import cv2
-import numpy as np
-
-ort_session = onnxruntime.InferenceSession("best.onnx")
-img = cv2.imread("test.jpg")
-# Tiền xử lý ảnh, resize, normalize (tùy theo input model)
-# Sau đó thực hiện inference:
-outputs = ort_session.run(None, {"images": input_tensor})
-```
-
-> 📌 Tương tự, bạn có thể dùng mô hình TorchScript, OpenVINO, hoặc TFLite tùy theo nền tảng triển khai (mobile, edge, cloud...).
-
----
-
-## ✅ Notes
-
-- YOLOv8 không cần định dạng `.cfg`, chỉ cần `.yaml` và cấu trúc đúng.
-- Hãy đảm bảo ảnh và nhãn có **cùng tên**, ví dụ: `image1.jpg` ↔ `image1.txt`.
-- Tất cả giá trị trong label YOLO phải **normalized** từ 0 → 1.
-- Với TFLite export, bạn có thể tạo mô hình:
-  - Float32
-  - Full integer quantization (để dùng trên microcontroller hoặc thiết bị ràng buộc tài nguyên)
-
----
-
-## ✍️ Author
-
-Script developed by [Your Name]  
-Feel free to raise issues or contribute!
+This project is open source and free to use under the MIT License.
