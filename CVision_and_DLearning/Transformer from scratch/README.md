@@ -1,54 +1,55 @@
 # 🤖 Transformer From Scratch - PyTorch
 
-Notebook này xây dựng mô hình **Transformer hoàn chỉnh từ đầu** bằng PyTorch, không dùng các hàm có sẵn như `nn.Transformer`. Phù hợp cho người muốn hiểu sâu cơ chế attention, positional encoding, encoder/decoder và training loop.
+This notebook builds a **Transformer model from scratch** using PyTorch, without relying on high-level modules like `nn.Transformer`. It's designed for those who want to deeply understand attention mechanisms, positional encoding, encoder/decoder structure, and the training loop.
 
 ---
 
-## 📌 Nội dung chính
+## 📌 Key Contents
 
 ### 1. **Embeddings**
 
-- Word embedding và positional encoding.
-- Kết hợp thành input embeddings.
+- Word embedding and positional encoding.
+- Combine them into input embeddings.
 
 ### 2. **Scaled Dot-Product Attention**
 
-- Tính toán attention từ Q, K, V.
-- Softmax với mask (tự động che đi tương lai trong decoder).
+- Compute attention from Q, K, V matrices.
+- Apply softmax and optional masking (e.g., for decoder's future masking).
 
 ### 3. **Multi-Head Attention**
 
-- Tách QKV thành nhiều "đầu" để học đa chiều.
-- Nối lại và chiếu về đầu ra.
+- Split QKV into multiple "heads" to capture different representations.
+- Concatenate and project the results.
 
 ### 4. **Feedforward & LayerNorm**
 
-- MLP hai tầng + Dropout.
-- Residual connections + LayerNorm.
+- Two-layer MLP with Dropout.
+- Residual connections and Layer Normalization.
 
-### 5. **Encoder & Decoder Block**
+### 5. **Encoder & Decoder Blocks**
 
-- Stack nhiều layer encoder và decoder.
-- Dùng self-attention và cross-attention.
+- Stack multiple encoder and decoder layers.
+- Use both self-attention and cross-attention mechanisms.
 
 ### 6. **Training**
 
-- Dataset toy: dịch đơn giản (ví dụ: từ số sang chữ).
-- Huấn luyện mô hình dịch seq2seq.
-- Mask padding, target shifting, loss.
+- Use a toy dataset (e.g., number-to-word translation).
+- Train the seq2seq Transformer model.
+- Handle padding masks, shifted targets, and loss computation.
 
 ---
 
-## 🧠 Mục tiêu học được:
+## 🧠 Learning Objectives
 
-- Hiểu sâu **cơ chế attention**.
-- Tự viết mô hình Transformer không phụ thuộc thư viện ngoài.
-- Áp dụng vào các bài toán NLP như dịch, tóm tắt, sinh văn bản.
+- Gain deep understanding of **attention mechanisms**.
+- Learn to implement a full Transformer model manually.
+- Apply to NLP tasks such as translation, summarization, and text generation.
 
 ---
 
-## ⚙️ Yêu cầu:
+## ⚙️ Requirements
 
 - Python 3.7+
 - PyTorch ≥ 1.10
-- NumPy, Matplotlib
+- NumPy
+- Matplotlib

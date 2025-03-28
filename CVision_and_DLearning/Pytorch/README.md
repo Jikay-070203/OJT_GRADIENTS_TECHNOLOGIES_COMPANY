@@ -1,61 +1,65 @@
 # 🔥 PyTorch Notebook Series
 
-Bộ 5 notebook học PyTorch từ cơ bản đến thực chiến Computer Vision.
+A collection of 5 notebooks to learn PyTorch from the basics to real-world applications in Computer Vision.
 
 ---
 
-## 📘 00_pytorch_fundamentals.ipynb
+## 📘 `00_pytorch_fundamentals.ipynb`
 
-**Giới thiệu Tensor**
+**Introduction to Tensors**
 
-- Tạo, thao tác tensor (reshape, indexing).
-- Toán tử số học, chuyển đổi NumPy ↔ Tensor.
-- Dùng GPU, autograd.
-
----
-
-## 🛠️ 01_PyTorch_workflow.ipynb
-
-**Quy trình huấn luyện model**
-
-- Tạo data giả, xây dựng mô hình tuyến tính.
-- Huấn luyện thủ công: forward → loss → backward.
-- Đánh giá độ chính xác.
+- Create and manipulate tensors (reshape, indexing).
+- Perform arithmetic operations, convert between NumPy ↔ Tensor.
+- Use GPU and autograd.
 
 ---
 
-## 👚 02_pytorch_classification.ipynb
+## 🛠️ `01_PyTorch_workflow.ipynb`
 
-**Phân loại ảnh FashionMNIST**
+**Model Training Workflow**
 
-- Dùng `torchvision.datasets`, `DataLoader`.
-- CNN cơ bản, huấn luyện nhiều epoch.
-- Dự đoán và visualize kết quả.
-
----
-
-## 📷 03_pytorch_computer_vision.ipynb
-
-**Computer Vision nâng cao**
-
-- Tiền xử lý ảnh với `transforms`.
-- Xài mô hình ResNet18.
-- Lưu & load mô hình, tối ưu hóa.
+- Generate sample data and build a simple linear model.
+- Manual training: forward → loss → backward.
+- Evaluate model accuracy.
 
 ---
 
-## 📂 04_pytorch_custom_datasets.ipynb
+## 👚 `02_pytorch_classification.ipynb`
 
-**Dataset tùy chỉnh**
+**FashionMNIST Image Classification**
 
-- Tạo class `Dataset` riêng để load ảnh.
-- Kết hợp transform, `DataLoader`.
-- Dùng dataset ngoài chuẩn để huấn luyện.
+- Use `torchvision.datasets` and `DataLoader`.
+- Build a basic CNN and train it for multiple epochs.
+- Make predictions and visualize the results.
 
 ---
 
-## 🚀 Yêu cầu:
+## 📷 `03_pytorch_computer_vision.ipynb`
 
-- Python 3.7+, PyTorch, torchvision, matplotlib, numpy
+**Advanced Computer Vision**
 
-Chạy từng file theo thứ tự để hiểu PyTorch từ A → Z.
+- Preprocess images using `transforms`.
+- Use the ResNet18 model.
+- Save, load, and optimize models.
+
+---
+
+## 📂 `04_pytorch_custom_datasets.ipynb`
+
+**Custom Datasets**
+
+- Create a custom `Dataset` class to load images.
+- Combine with transforms and `DataLoader`.
+- Train with non-standard/custom datasets.
+
+---
+
+## 🚀 Requirements
+
+- Python 3.7+
+- PyTorch
+- torchvision
+- matplotlib
+- numpy
+
+Follow the notebooks in order to master PyTorch from A to Z.
