@@ -1,6 +1,6 @@
 # 🚀 Model Deployment Pipeline with ONNX, FastAPI & Trism
 
-This project demonstrates a complete pipeline for deploying deep learning models using **ONNX**, **Triton Inference Server**, **FastAPI**, and the lightweight **Trism** alternative.
+This project demonstrates a complete pipeline for deploying deep learning models using **ONNX**, **Triton Inference Server**, **FastAPI**, and the lightweight **Trism** alternative and Automatically download model from **Hugging Face** on container startup.
 
 ---
 
