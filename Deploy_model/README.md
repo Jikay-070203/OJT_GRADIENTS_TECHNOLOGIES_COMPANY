@@ -19,7 +19,7 @@ Deploy_model/
 │   └── Serve model with FastAPI, call Triton via gRPC
 │
 ├── Task_4_FastAPI_with_Trism/
-│   └── Replace TritonClient with Trism, pull model from Hugging Face
+│   └── Replace TritonClient with Trism, Automatically download model from **Hugging Face** on container startup.
 ```
 
 ---
@@ -44,11 +44,11 @@ Deploy_model/
 
 ---
 
-## ✅ Task 3: FastAPI with Triton (gRPC)
+## ✅ Task 3: FastAPI with Triton (gRPC) and HTTP
 
 - Build a **FastAPI** application to:
   - Accept input via REST API.
-  - Send inference requests to Triton via gRPC (`tritonclient.grpc`).
+  - Send inference requests to Triton via gRPC (`tritonclient.grpc`) or HTTP (`tritonclient.grpc`)
   - Return predictions to users.
 
 ```bash
@@ -57,6 +57,7 @@ uvicorn main:app --reload
 ```
 
 - Sample route:
+
 ```python
 @app.post("/predict_grpc/")
 def predict_grpc(data: dict): ...
@@ -72,6 +73,7 @@ def predict_grpc(data: dict): ...
 - Improve deployment efficiency and reduce image size.
 
 > ⚠️ Notes:
+>
 > - Handle port conflicts during server startup.
 > - Adjust model structure on Hugging Face to match Triton input expectations.
 
@@ -83,7 +85,7 @@ def predict_grpc(data: dict): ...
 - PyTorch, ONNX
 - Triton Inference Server
 - FastAPI, Uvicorn
-- gRPC, Trism
+- gRPC or http, Trism
 - Docker & Docker Compose
 - Hugging Face Model Hub
 
