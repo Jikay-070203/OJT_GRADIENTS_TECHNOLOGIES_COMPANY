@@ -68,7 +68,7 @@ folder_path = "annotations/train"
 output_folder = "labels/train"
 images_path = "images/train"
 label_dict = {"your_class_name": 0}  # Mapping label → index
->>>>>>> be777977b6c29289436eb7702b138410bdcc5883
+>>>>>>> 64c142189d239f38b11c81697d0d72f44070c728
 ```
 
 ## 🚀 Features
@@ -85,6 +85,7 @@ label_dict = {"your_class_name": 0}  # Mapping label → index
 
 ```bash
 pip install ultralytics opencv-python matplotlib numpy
+<<<<<<< HEAD
 ```
 
 Or use a `requirements.txt` file if available.
@@ -127,4 +128,48 @@ results = model("test_demo_v8.jpg", show=True)
 
 ## 📄 License
 
+=======
+```
+
+Or use a `requirements.txt` file if available.
+
+## 🧪 Training
+
+You can use the notebooks to train the model:
+
+```bash
+jupyter notebook v2_training.ipynb
+```
+
+Training uses `ultralytics` package with YOLOv8.
+
+## 🧳 Dataset Preparation
+
+- If your annotations are in Pascal VOC format (XML), use the notebook/code in `extract_object_into_from_xml/` to convert to YOLO format.
+- Extract `dataset.zip` into the `data/` folder before training.
+
+## 🧾 Conversion
+
+To convert trained `.pt` model to ONNX or other formats, check scripts inside `convert_model/`.
+
+## 🚀 Deployment
+
+Deployment logic (e.g., via FastAPI, Flask, Triton, etc.) is available in `deploy/`.
+
+## 🖼 Demo
+
+You can use `test_demo_v8.jpg` and the trained model `yolov8m.pt` to perform inference.
+
+Example:
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolov8m.pt")
+results = model("test_demo_v8.jpg", show=True)
+```
+
+## 📄 License
+
+>>>>>>> 64c142189d239f38b11c81697d0d72f44070c728
 This project is open source and free to use under the MIT License.
