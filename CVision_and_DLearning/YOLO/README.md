@@ -8,34 +8,32 @@ This repository provides a two-step process to train YOLOv8m on a custom dataset
 ---
 
 ## 📁 Repository Structure
-
----
-
-├── 01_extract_object_into_from_xml.ipynb # Convert XML to YOLO
-├── yolo_training.ipynb # Train YOLOv8m
-├── images/ # All images
-│ ├── train/ # Dữ liệu huấn luyện
-│ ├── val/ # Dữ liệu validation
-│ └── test_demo_v8.jpg # Ảnh test mẫu
-├── annotations/ # VOC XML annotations
-│ ├── train/
-│ └── val/
-├── labels/ # Output YOLO labels
-│ ├── train/
-│ └── val/
-├── model/ # Chứa mô hình huấn luyện
-│ ├── yolov8m.pt # Model YOLOv8 đã train
-│ └── runs/ # Thư mục chứa kết quả huấn luyện
-├── deploy/ # Triển khai mô hình
-├── convert_model/ # Chuyển đổi mô hình (sang ONNX, TensorRT, v.v.)
-├── data/ # Dữ liệu gốc
-│ ├── dataset.zip # Dữ liệu nén
-│ ├── data_test/ # Thư mục chứa dữ liệu test
-├── README.md # Mô tả dự án
-├── link.txt # Liên kết tài liệu hoặc model
-└── data.yaml # Dataset config for YOLO
-
----
+```
+.
+├── 01_extract_object_into_from_xml.ipynb   # Convert XML to YOLO
+├── yolo_training.ipynb                     # Train YOLOv8m
+├── images/                                 # All images
+│   ├── train/                              # Dữ liệu huấn luyện
+│   ├── val/                                # Dữ liệu validation
+│   └── test_demo_v8.jpg                    # Ảnh test mẫu
+├── annotations/                            # VOC XML annotations
+│   ├── train/
+│   └── val/
+├── labels/                                 # Output YOLO labels
+│   ├── train/
+│   └── val/
+├── model/                                  # Chứa mô hình huấn luyện
+│   ├── yolov8m.pt                          # Model YOLOv8 đã train
+│   └── runs/                               # Thư mục chứa kết quả huấn luyện
+├── deploy/                                 # Triển khai mô hình
+├── convert_model/                          # Chuyển đổi mô hình (sang ONNX, TensorRT, v.v.)
+├── data/                                   # Dữ liệu gốc
+│   ├── dataset.zip                         # Dữ liệu nén
+│   ├── data_test/                          # Thư mục chứa dữ liệu test
+├── README.md                               # Mô tả dự án
+├── link.txt                                # Liên kết tài liệu hoặc model
+└── data.yaml                               # Dataset config for YOLO
+```
 
 ## 🔧 Step 1: Convert XML Annotations to YOLOv8 Format
 
