@@ -11,7 +11,6 @@ This repository provides a two-step process to train YOLOv8m on a custom dataset
 
 ---
 
-.
 ├── 01_extract_object_into_from_xml.ipynb # Convert XML to YOLO
 ├── yolo_training.ipynb # Train YOLOv8m
 ├── images/ # All images
