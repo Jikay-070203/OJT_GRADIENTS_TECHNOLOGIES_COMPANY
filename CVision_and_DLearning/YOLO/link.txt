@@ -1,0 +1,4 @@
+drive: https://drive.google.com/drive/folders/1A7nEyI2kzNepgTPSEoeNYBNnd2DzA6bs?usp=sharing
+
+data:
+https://app.roboflow.com/dpl302m-lwlob/widerface2_task1_ojt_ver1/1

@@ -1,29 +1,38 @@
-# 🚀 YOLOv8m Training Pipeline from VOC XML Annotations
+# 🚀 YOLOv8m Training Pipeline
 
-This repository provides a two-step pipeline for training YOLOv8m on a custom dataset annotated in Pascal VOC XML format. The pipeline includes:
+This repository provides a two-step process to train YOLOv8m on a custom dataset annotated in Pascal VOC XML format (if needed). The pipeline includes:
 
-1. 📦 Converting `.xml` annotations to YOLOv8 format
+1. 📦 Converting `.xml` annotations to YOLOv8 format (if needed)
 2. 🧠 Training YOLOv8m with the Ultralytics framework
 
 ---
 
 ## 📁 Repository Structure
 
-```
 .
-├── 01_extract_object_into_from_xml.ipynb   # Convert XML to YOLO
-├── yolo_training.ipynb                     # Train YOLOv8m
-├── images/                                 # All images
-│   ├── train/
-│   └── val/
-├── annotations/                            # VOC XML annotations
-│   ├── train/
-│   └── val/
-├── labels/                                 # Output YOLO labels
-│   ├── train/
-│   └── val/
-└── data.yaml                               # Dataset config for YOLO
-```
+├── 01_extract_object_into_from_xml.ipynb # Convert XML to YOLO
+├── yolo_training.ipynb # Train YOLOv8m
+├── images/ # All images
+│ ├── train/ # Dữ liệu huấn luyện
+│ ├── val/ # Dữ liệu validation
+│ └── test_demo_v8.jpg # Ảnh test mẫu
+├── annotations/ # VOC XML annotations
+│ ├── train/
+│ └── val/
+├── labels/ # Output YOLO labels
+│ ├── train/
+│ └── val/
+├── model/ # Chứa mô hình huấn luyện
+│ ├── yolov8m.pt # Model YOLOv8 đã train
+│ └── runs/ # Thư mục chứa kết quả huấn luyện
+├── deploy/ # Triển khai mô hình
+├── convert_model/ # Chuyển đổi mô hình (sang ONNX, TensorRT, v.v.)
+├── data/ # Dữ liệu gốc
+│ ├── dataset.zip # Dữ liệu nén
+│ ├── data_test/ # Thư mục chứa dữ liệu test
+├── README.md # Mô tả dự án
+├── link.txt # Liên kết tài liệu hoặc model
+└── data.yaml # Dataset config for YOLO
 
 ---
 
@@ -32,6 +41,7 @@ This repository provides a two-step pipeline for training YOLOv8m on a custom da
 Open and run **`01_extract_object_into_from_xml.ipynb`**.
 
 ### 🔄 What it does:
+
 - Parses VOC-style XML files
 - Extracts: filename, size, object (label + bounding box)
 - Converts to YOLO format: `class_id x_center y_center width height` (normalized)
@@ -55,6 +65,7 @@ label_dict = {"your_class_name": 0}  # Mapping label → index
 Open and run **`yolo_training.ipynb`**.
 
 ### ✅ What it does:
+
 - Loads YOLOv8m with `YOLO("yolov8m.pt")`
 - Trains using the specified `data.yaml`
 - Outputs:
@@ -80,12 +91,12 @@ Sau khi huấn luyện, bạn có thể export mô hình sang nhiều định d�
 
 ### ✅ Các định dạng đã export:
 
-| Format         | File/Folder Output                          |
-|----------------|---------------------------------------------|
-| ONNX           | `best.onnx`                                 |
-| TorchScript    | `best.torchscript`                          |
-| OpenVINO       | `best_openvino_model/`                      |
-| TFLite         | `best_float32.tflite`, `best_full_integer_quant.tflite` |
+| Format      | File/Folder Output                                      |
+| ----------- | ------------------------------------------------------- |
+| ONNX        | `best.onnx`                                             |
+| TorchScript | `best.torchscript`                                      |
+| OpenVINO    | `best_openvino_model/`                                  |
+| TFLite      | `best_float32.tflite`, `best_full_integer_quant.tflite` |
 
 ### 🧪 Test thử sau khi export
 
