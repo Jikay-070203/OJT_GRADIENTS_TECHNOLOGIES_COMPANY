@@ -3,7 +3,6 @@
 
 This repository contains the full training, conversion, and deployment pipeline for an object detection system using **YOLOv8**.
 
-<<<<<<< HEAD
 ## 📁 Project Structure
 
 ```
