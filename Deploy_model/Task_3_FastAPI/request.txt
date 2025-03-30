@@ -1,0 +1,6 @@
+API for Model Serving
+Tutorials:
+Use FastAPI: [FastAPI First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/#first-steps)  
+
+Requirements:
+Design an API to send inference requests via API.
