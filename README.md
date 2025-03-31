@@ -1,4 +1,3 @@
-
 # 🧠 AI Model Collection: Training, Deployment & Applications
 
 This repository is a collection of advanced deep learning projects that showcase model training, deployment, and application pipelines using **PyTorch**, **ONNX**, **Triton Inference Server**, and **FastAPI**. It includes foundational learning, custom training, and production-grade deployment scenarios.
@@ -9,7 +8,7 @@ This repository is a collection of advanced deep learning projects that showcase
 
 ### 🔍 1. Object Detection & Face Recognition (YOLOv8)
 
-- Train YOLOv8 on custom datasets (e.g., trash detection, smart camera).
+- Train YOLOv8 on custom datasets (e.g., face detection, smart camera).
 - Convert models to ONNX/TorchScript.
 - Deploy using Triton Server + FastAPI.
 - Track people & classify objects in real-time.
