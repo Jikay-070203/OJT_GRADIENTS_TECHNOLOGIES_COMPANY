@@ -1,4 +1,3 @@
-
 # 🧠 AI Projects Summary - PyTorch, YOLO, Transformers
 
 This repository contains a diverse collection of AI and deep learning projects implemented using **PyTorch**, covering topics from foundational neural networks to advanced detection and Transformer models.
@@ -8,9 +7,9 @@ This repository contains a diverse collection of AI and deep learning projects i
 ## 🔍 1. Object Detection with YOLOv8
 
 - Custom training using **Ultralytics YOLOv8**.
-- Supports annotation conversion, model export to ONNX/TorchScript.
-- Deployment-ready using FastAPI or Triton Inference Server.
-- Example use cases: waste detection, smart surveillance.
+- Supports annotation conversion, model export to ONNX/TorchScript/.
+- Deployment-ready using FastAPI and Triton Inference Server.
+- Example use cases: face detection, smart surveillance.
 
 📁 Notebook: `v2_training.ipynb`  
 📦 Folder: `convert_model/`, `deploy/`, `extract_object_into_from_xml/`
@@ -43,13 +42,13 @@ This repository contains a diverse collection of AI and deep learning projects i
 
 A complete notebook series to build up PyTorch expertise step-by-step:
 
-| Notebook | Topic |
-|----------|-------|
-| `00_pytorch_fundamentals.ipynb` | Tensor basics |
-| `01_PyTorch_workflow.ipynb`     | Manual training pipeline |
-| `02_pytorch_classification.ipynb` | CNN with FashionMNIST |
+| Notebook                           | Topic                         |
+| ---------------------------------- | ----------------------------- |
+| `00_pytorch_fundamentals.ipynb`    | Tensor basics                 |
+| `01_PyTorch_workflow.ipynb`        | Manual training pipeline      |
+| `02_pytorch_classification.ipynb`  | CNN with FashionMNIST         |
 | `03_pytorch_computer_vision.ipynb` | Transfer learning with ResNet |
-| `04_pytorch_custom_datasets.ipynb` | Handling custom datasets |
+| `04_pytorch_custom_datasets.ipynb` | Handling custom datasets      |
 
 ---
 
@@ -63,7 +62,7 @@ pip install torch torchvision ultralytics matplotlib numpy
 
 ## 🎯 Use Cases
 
-- Waste classification with face recognition
+- Face recognition
 - Image classification with transfer learning
 - Educational deep dive into Transformers
 - Hands-on PyTorch training from beginner to advanced
