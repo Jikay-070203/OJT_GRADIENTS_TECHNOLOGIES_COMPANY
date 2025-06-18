@@ -15,6 +15,7 @@ FastAPI-based inference server for **InstructPix2Pix** using ONNX models deploye
 ---
 
 ## 🏗️ Project Structure
+
 <pre>
 .
 ├── app/                    # FastAPI app source code
@@ -52,3 +53,4 @@ uvicorn app:app --host 0.0.0.0 --port 8080 --reload
 -Build:
 docker build -t instructpix2pix-triton .
 docker run --gpus all -p 8000:8000 instructpix2pix-triton
+```
