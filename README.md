@@ -1,8 +1,7 @@
----
-
 # 🧠 AI Model Collection: Training, Deployment & Applications
 
 Dự án này là bộ sưu tập các project về **Computer Vision** và **Deep Learning** với các chủ đề:
+
 - Huấn luyện mô hình (PyTorch, YOLO, VGG16, Transformer)
 - Chuyển đổi và triển khai mô hình (ONNX, Triton Inference Server, Trism, FastAPI)
 - Ứng dụng thực tế: Nhận diện đối tượng, phân loại ảnh, chỉnh sửa ảnh dựa trên văn bản (InstructPix2Pix), v.v.
@@ -10,18 +9,21 @@ Dự án này là bộ sưu tập các project về **Computer Vision** và **De
 ## 📂 Cấu trúc chính
 
 ### 1. `CVision_and_DLearning/`
+
 - **YOLO**: Huấn luyện, chuyển đổi, triển khai YOLOv8 cho nhận diện khuôn mặt, đối tượng.
 - **VGG16**: Fine-tune VGG16 cho phân loại ảnh.
 - **Transformer from scratch**: Xây dựng Transformer thủ công để học về NLP.
 - **PyTorch notebook series**: Học PyTorch từ cơ bản đến nâng cao.
 
 ### 2. `Deploy_model/`
+
 - **Task 1**: Chuyển đổi mô hình sang ONNX, super resolution, phục vụ với Triton.
 - **Task 2**: Triển khai mô hình với Triton, benchmark hiệu năng.
 - **Task 3**: FastAPI gọi Triton qua gRPC/HTTP.
 - **Task 4**: FastAPI + Trism, tự động tải model từ Hugging Face khi khởi động container.
 
 ### 3. `instruct_pix2pix_white_balance/`
+
 - **InstructPix2Pix Triton API**: Triển khai server inference cho InstructPix2Pix (chỉnh sửa ảnh theo văn bản) với ONNX + Triton + FastAPI, hỗ trợ Docker/Kubernetes.
 - **Ví dụ chạy local, colab**: Hướng dẫn và script chạy thử nghiệm.
 
