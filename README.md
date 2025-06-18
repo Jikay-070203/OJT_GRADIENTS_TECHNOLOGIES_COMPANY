@@ -1,88 +1,43 @@
+---
+
 # 🧠 AI Model Collection: Training, Deployment & Applications
 
-This repository is a collection of advanced deep learning projects that showcase model training, deployment, and application pipelines using **PyTorch**, **ONNX**, **Triton Inference Server**, and **FastAPI**. It includes foundational learning, custom training, and production-grade deployment scenarios.
+Dự án này là bộ sưu tập các project về **Computer Vision** và **Deep Learning** với các chủ đề:
+- Huấn luyện mô hình (PyTorch, YOLO, VGG16, Transformer)
+- Chuyển đổi và triển khai mô hình (ONNX, Triton Inference Server, Trism, FastAPI)
+- Ứng dụng thực tế: Nhận diện đối tượng, phân loại ảnh, chỉnh sửa ảnh dựa trên văn bản (InstructPix2Pix), v.v.
+
+## 📂 Cấu trúc chính
+
+### 1. `CVision_and_DLearning/`
+- **YOLO**: Huấn luyện, chuyển đổi, triển khai YOLOv8 cho nhận diện khuôn mặt, đối tượng.
+- **VGG16**: Fine-tune VGG16 cho phân loại ảnh.
+- **Transformer from scratch**: Xây dựng Transformer thủ công để học về NLP.
+- **PyTorch notebook series**: Học PyTorch từ cơ bản đến nâng cao.
+
+### 2. `Deploy_model/`
+- **Task 1**: Chuyển đổi mô hình sang ONNX, super resolution, phục vụ với Triton.
+- **Task 2**: Triển khai mô hình với Triton, benchmark hiệu năng.
+- **Task 3**: FastAPI gọi Triton qua gRPC/HTTP.
+- **Task 4**: FastAPI + Trism, tự động tải model từ Hugging Face khi khởi động container.
+
+### 3. `instruct_pix2pix_white_balance/`
+- **InstructPix2Pix Triton API**: Triển khai server inference cho InstructPix2Pix (chỉnh sửa ảnh theo văn bản) với ONNX + Triton + FastAPI, hỗ trợ Docker/Kubernetes.
+- **Ví dụ chạy local, colab**: Hướng dẫn và script chạy thử nghiệm.
 
 ---
 
-## 📦 Project Highlights
+## 🛠 Công nghệ sử dụng
 
-### 🔍 1. Object Detection & Face Recognition (YOLOv8)
-
-- Train YOLOv8 on custom datasets (e.g., face detection, smart camera).
-- Convert models to ONNX/TorchScript.
-- Deploy using Triton Server + FastAPI.
-- Track people & classify objects in real-time.
-
-📂 `v2_training.ipynb`, `convert_model/`, `deploy/`
-
----
-
-### 🖼 2. InstructPix2Pix API (Image Editing)
-
-- Deploy ONNX models for image-to-image editing using text prompts.
-- Components: VAE Encoder, UNet, VAE Decoder via Triton Inference Server.
-- FastAPI backend for REST API `POST /inference`.
-- Docker + Kubernetes ready.
-
-📂 `app/`, `charts/`, `k8s/`, `triton_clients/`
-
----
-
-### 🚀 3. Model Deployment Pipeline (Trism + HuggingFace)
-
-- Convert and serve PyTorch/ONNX models.
-- Deploy with Triton or **Trism** (lightweight wrapper).
-- Download models automatically from HuggingFace at startup.
-- Benchmark inference using Triton Performance Analyzer.
-- FastAPI + gRPC/HTTP API endpoints.
-
-📂 `Deploy_model/Task_1-4/`
-
----
-
-### 🧠 4. Vision Classification with VGG16
-
-- Fine-tune `torchvision.models.vgg16` for custom image classification.
-- Modify classifier head, visualize metrics.
-- Structured for easy experimentation.
-
-📂 `VGG16.ipynb`
-
----
-
-### 🔁 5. Transformer from Scratch
-
-- Build a Transformer manually using PyTorch.
-- Learn embeddings, attention, multi-head, encoder-decoder blocks.
-- Use toy datasets (e.g., number to word) for training.
-- For educational understanding of NLP models.
-
-📂 `Transformer_From_Scratch.ipynb`
-
----
-
-### 📘 6. PyTorch Notebook Series
-
-- Learn PyTorch from basics to vision models.
-- Tensor ops, training loop, CNN, ResNet, custom datasets.
-- Great for students, educators, or ML beginners.
-
-📂 `00_` → `04_pytorch_custom_datasets.ipynb`
-
----
-
-## 🛠 Tech Stack
-
-- PyTorch, TorchVision
-- ONNX
-- Triton Inference Server, Trism
+- PyTorch, TorchVision, Ultralytics YOLO
+- ONNX, Triton Inference Server, Trism
 - FastAPI, Uvicorn
 - Docker, Kubernetes, Helm
 - Hugging Face Model Hub
 
 ---
 
-## 🧰 Requirements
+## 🚀 Hướng dẫn cài đặt nhanh
 
 ```bash
 pip install torch torchvision ultralytics matplotlib numpy fastapi uvicorn onnx tritonclient
@@ -90,6 +45,15 @@ pip install torch torchvision ultralytics matplotlib numpy fastapi uvicorn onnx 
 
 ---
 
-## 📄 License
+## 📄 CUSTOM LICENSE
 
-Open-source AI project collection for research, education, and deployment.
+Copyright (c) 2025 Nguyen Thanh Hoa
+
+Bạn được phép sử dụng, sao chép, chỉnh sửa, chia sẻ, thương mại hóa dự án này với điều kiện:
+
+- **Ghi rõ nguồn tác giả:** Nguyen Thanh Hoa
+- **Không được kiện cáo, phản bác hay gây ảnh hưởng tiêu cực đến tác giả**
+- **Mọi thay đổi phải nêu rõ và giữ lại phần ghi công gốc**
+- **Dự án được cung cấp "nguyên trạng", không có bất kỳ bảo đảm nào. Tác giả không chịu trách nhiệm cho mọi rủi ro phát sinh từ việc sử dụng.**
+
+---
